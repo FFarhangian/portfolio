@@ -1,4 +1,4 @@
-# Bienvenue sur mon portfolio
-Ce site présente mon travail, mes compétences et quelques uns de mes projets en tant que scientifique de données et enseignant en Machine Learning.
+# Welcome to my portfolio!
+This site showcases my work, skills, and selected projects as a data scientist and machine learning instructor.
 
-📌 Lien du site : https://bens368.github.io/portfolio/
+📌 Website: https://ffarhangian.github.io/portfolio/
