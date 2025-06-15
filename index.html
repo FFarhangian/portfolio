@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Sacha Benadiba Portfolio</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/logo_icon_SB.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: MyResume
+  * Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/
+  * Updated: Jun 14 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex flex-column justify-content-center">
+
+    <i class="header-toggle d-xl-none bi bi-list"></i>
+
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+      <button class="lang-btn active" data-lang="fr">FR</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+
+    <!-- Simple test script -->
+    <script>
+      console.log('Inline script running...');
+      let typedInstance = null;
+      
+      function initTyped(lang) {
+        const typedElement = document.getElementById('typed-output');
+        if (typedElement && typeof Typed !== 'undefined') {
+          console.log('Initializing typed.js for language:', lang);
+          // Destroy existing instance if it exists
+          if (typedInstance) {
+            typedInstance.destroy();
+          }
+          
+          // Get the appropriate strings for the language
+          const typedStrings = typedElement.getAttribute(`data-typed-items-${lang}`);
+          if (typedStrings) {
+            console.log('Typed strings:', typedStrings);
+            typedInstance = new Typed('#typed-output', {
+              strings: typedStrings.split(',').map(s => s.trim()),
+              loop: true,
+              typeSpeed: 100,
+              backSpeed: 50,
+              backDelay: 2000
+            });
+          }
+        } else {
+          console.log('Typed.js not available or element not found');
+        }
+      }
+      
+      function waitForTyped() {
+        if (typeof Typed !== 'undefined') {
+          console.log('Typed.js loaded, initializing...');
+          const storedLang = localStorage.getItem('preferredLanguage') || 'fr';
+          initTyped(storedLang);
+        } else {
+          console.log('Waiting for Typed.js...');
+          setTimeout(waitForTyped, 100);
+        }
+      }
+      
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM loaded in inline script');
+        const buttons = document.querySelectorAll('.lang-btn');
+        console.log('Found buttons:', buttons.length);
+        
+        buttons.forEach(btn => {
+          console.log('Button:', btn.getAttribute('data-lang'));
+          btn.addEventListener('click', function() {
+            const lang = this.getAttribute('data-lang');
+            console.log('Button clicked:', lang);
+            
+            // Update button states
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Update HTML lang
+            document.documentElement.lang = lang;
+            
+            // Update all content EXCEPT the typed elements
+            const elements = document.querySelectorAll('[data-fr][data-en]');
+            console.log('Updating', elements.length, 'elements');
+            
+            elements.forEach(element => {
+              // Skip the typed elements
+              if (!element.classList.contains('typed') && element.id !== 'typed-prefix' && element.id !== 'typed-output') {
+                const text = element.getAttribute(`data-${lang}`);
+                if (text) {
+                  element.textContent = text;
+                  console.log('Updated:', element.tagName, 'with:', text);
+                }
+              }
+            });
+            
+            // Update affiliations list elements specifically
+            const affiliationsElements = document.querySelectorAll('.affiliations-list div[data-fr][data-en]');
+            affiliationsElements.forEach(element => {
+              const text = element.getAttribute(`data-${lang}`);
+              if (text) {
+                element.textContent = text;
+                console.log('Updated affiliation:', element.tagName, 'with:', text);
+              }
+            });
+            
+            // Update the typed prefix separately
+            const prefixElement = document.getElementById('typed-prefix');
+            if (prefixElement) {
+              const prefixText = prefixElement.getAttribute(`data-${lang}`);
+              if (prefixText) {
+                prefixElement.textContent = prefixText;
+                console.log('Updated typed prefix with:', prefixText);
+              }
+            }
+            
+            // Update placeholders
+            document.querySelectorAll('input[data-fr-placeholder][data-en-placeholder]').forEach(input => {
+              const placeholder = input.getAttribute(`data-${lang}-placeholder`);
+              if (placeholder) {
+                input.placeholder = placeholder;
+              }
+            });
+            
+            // Update typed animation for new language
+            setTimeout(() => {
+              initTyped(lang);
+            }, 100);
+            
+            // Store language preference
+            localStorage.setItem('preferredLanguage', lang);
+          });
+        });
+        
+        // Initialize typed animation on page load
+        waitForTyped();
+      });
+    </script>
+
+    <nav id="navmenu" class="navmenu">
+      <ul>
+        <li><a href="#hero" class="active"><i class="bi bi-house navicon"></i><span data-fr="Accueil" data-en="Home">Accueil</span></a></li>
+        <li><a href="#about"><i class="bi bi-person navicon"></i><span data-fr="À propos" data-en="About">À propos</span></a></li>
+        <li><a href="#resume"><i class="bi bi-file-earmark-text navicon"></i><span data-fr="CV" data-en="Resume">CV</span></a></li>
+        <li><a href="#portfolio"><i class="bi bi-images navicon"></i><span data-fr="Portfolio" data-en="Portfolio">Portfolio</span></a></li>
+        <li><a href="#contact"><i class="bi bi-envelope navicon"></i><span data-fr="Contact" data-en="Contact">Contact</span></a></li>
+      </ul>
+    </nav>
+
+  </header>
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+
+      <img src="assets/img/hero.png" alt="Image de Faramarz Farhangian">
+
+      <div class="container" data-aos="zoom-out">
+        <div class="row justify-content-center">
+          <div class="col-lg-9">
+            <h2>Faramarz Farhangian</h2>
+            <p id="typed-line">
+              <span id="typed-prefix" data-fr="Je suis" data-en="I am">Je suis</span>
+              <span id="typed-output" class="typed" data-typed-items-fr="Data Scientist, AI/ML Engineer, Data Engineer, NLP Developer, Python Developer, BI Developer" data-typed-items-en="Data Scientist, AI/ML Engineer, Data Engineer, NLP Developer, Python Developer, BI Developer"></span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span>
+            </p>
+            <div class="social-links">
+              <a href="https://www.linkedin.com/in/faramarzfarhangian/"><i class="fab fa-linkedin"></i></a>
+              <a href="https://github.com/FFarhangian"><i class="fab fa-github"></i></a>
+              <a href="https://www.facebook.com/profile.php?id=61577031762109"><i class="fab fa-facebook"></i></a>
+              <a href="https://x.com/FaramarzFarhan4"><i class="fab fa-x-twitter"></i></a>
+              <a href="https://farafhn.medium.com/"><i class="fab fa-medium"></i></a>
+              <a href="https://huggingface.co/farafhn"><i class="fas fa-robot"></i></a>
+              <a href="https://scholar.google.ca/citations?hl=en&user=yo3nsroAAAAJ"><i class="fas fa-graduation-cap"></i></a>
+              <a href="https://orcid.org/0009-0000-2697-6034"><i class="fab fa-orcid"></i></a>
+              <a href="https://www.kaggle.com/faramarzfarhangian"><i class="fab fa-kaggle"></i></a>
+              <a href="#contact"><i class="bi bi-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="scroll-icon">
+      <i class="bi bi-chevron-down"></i>
+      </div>
+      
+    </section><!-- /Hero Section -->
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+
+      <div class="container section-title" data-aos="fade-up" style="text-align: left;">
+        <h2 data-fr="À propos" data-en="About" style="text-align: center;">À propos</h2>
+        <p data-fr="Je suis un ingénieur en apprentissage automatique bilingue avec plus de 9 ans d'expérience dans la livraison de solutions alimentées par l'IA dans des industries telles que la finance, l'énergie, les transports, les médias, le commerce de détail, l'environnement et la santé publique. Je me spécialise dans le traitement du langage naturel et la vision par ordinateur, avec un accent particulier sur la construction de pipelines d'apprentage automatique évolutifs et le déploiement d'applications d'IA en conditions réelles qui génèrent un impact mesurable. Mon parcours dans la recherche en IA a commencé par un baccalauréat en Statistiques Appliquées de l'Université Shahid Beheshti, où j'ai également travaillé comme assistant de recherche et chargé de cours. Pendant cette période, j'ai mené des recherches précoces en modélisation prédictive sous la direction du Professeur Mohammad Reza Faghihi (Université de Leeds) et du Professeur Ali Reza Taheriyoun (maintenant à l'Université George Washington). J'ai ensuite terminé ma maîtrise en Intelligence Artificielle à l'École de technologie supérieure (ÉTS Montréal), sous la supervision du Professeur Rafael Menelau Cruz (ÉTS), du Professeur George Darmiton da Cunha Cavalcanti (UFPE, Brésil) et du Professeur Jean-François Plante (HEC Montréal). Ma thèse portait sur la détection dynamique de fausses nouvelles multi-vues utilisant des modèles de langage de grande taille (LLM), et j'ai reçu deux fois la bourse IVADO pour l'excellence en recherche en IA. Je suis passionné par le rapprochement entre la recherche et l'application dans le monde réel, et je reste activement impliqué dans des collaborations académiques et du secteur public qui utilisent l'IA pour résoudre des problèmes pressants dans les soins de santé, la protection de l'environnement et l'intelligence urbaine." data-en="I'm a bilingual Machine Learning Engineer with over 9 years of experience delivering AI-powered solutions across industries such as finance, energy, transportation, media, retail, environment, and public health. I specialize in natural language processing and computer vision, with a strong focus on building scalable machine learning pipelines and deploying real-world AI applications that drive measurable impact. My journey into AI research began with a Bachelor's degree in Applied Statistics from Shahid Beheshti University, where I also worked as a Research Assistant and Lecturer. During this time, I conducted early research in predictive modeling under the guidance of Professor Mohammad Reza Faghihi (Leeds University) and Professor Ali Reza Taheriyoun (now at George Washington University). I went on to complete my Master's degree in Artificial Intelligence at École de technologie supérieure (ÉTS Montréal), under the supervision of Professor Rafael Menelau Cruz (ÉTS), Professor George Darmiton da Cunha Cavalcanti (UFPE, Brazil), and Professor Jean-François Plante (HEC Montréal). My thesis focused on dynamic multi-view fake news detection using large language models (LLMs), and I was twice awarded the IVADO scholarship for excellence in AI research. I am passionate about bridging research and real-world application, and I remain actively involved in academic and public-sector collaborations that use AI to solve pressing problems in healthcare, environmental protection, and urban intelligence." style="text-align: left; text-align-last: left;">I'm a bilingual Machine Learning Engineer with over 9 years of experience delivering AI-driven solutions across a wide range of industries, including media, finance, energy, transportation, retail, environmental services, and public health. My expertise lies in designing scalable machine learning pipelines, deploying real-world AI applications, and conducting impactful research in computer vision and natural language processing (NLP). My academic and research journey spans prestigious institutions in Canada and internationally. I completed my M.Sc. in Artificial Intelligence at ÉTS Montréal, where I developed a novel framework for Dynamic Multi-view Learning using Large Language Models (LLMs), applied to fake news detection and text classification. During my graduate studies, I was awarded two IVADO scholarships for excellence in AI research. Previously, I earned a Bachelor's degree in Applied Statistics from Shahid Beheshti University, where I also worked as a Lecturer and Research Assistant. In addition to my applied industry experience, I remain deeply engaged with the academic and research community, contributing to cutting-edge AI research across multiple domains.</p>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4 justify-content-center">
+          <div class="col-lg-4">
+            <img src="assets/img/fara.jpg" class="img-fluid" alt="Image de Faramarz Farhangian">
+          </div>
+          <div class="col-lg-8 content">
+            <div class="row">
+              <div class="col-lg-12">
+                <h4 data-fr="Affiliations et membreships" data-en="Affiliations & Memberships">Affiliations & Memberships</h4>
+                <div class="affiliations-list">
+                  <div data-fr="Chercheur en IA au Laboratoire d'imagerie, de vision et d'intelligence artificielle (LIVIA), ÉTS Montréal, Canada" data-en="AI Researcher at Laboratoire d'imagerie, de vision et d'intelligence artificielle (LIVIA), ÉTS Montréal, Canada">- AI Researcher at Laboratoire d'imagerie, de vision et d'intelligence artificielle (LIVIA), ÉTS Montréal, Canada</div>
+                  <div data-fr="Chercheur en IA à EQUAL Lab (EQuity & EQuality Using AI and Learning algorithms), Mila, Montréal, Canada" data-en="AI Researcher at EQUAL Lab (EQuity & EQuality Using AI and Learning algorithms), Mila, Montréal, Canada">- AI Researcher at EQUAL Lab (EQuity & EQuality Using AI and Learning algorithms), Mila, Montréal, Canada</div>
+                  <div data-fr="Chercheur en IA au NLP Group, HEC Montréal, Département des sciences de la décision, Montréal, Canada" data-en="AI Researcher at NLP Group, HEC Montréal, Department of Decision Sciences, Montréal, Canada">- AI Researcher at NLP Group, HEC Montréal, Department of Decision Sciences, Montréal, Canada</div>
+                  <div data-fr="Chercheur au Centre de recherche en santé publique (CReSP), Montréal, Canada" data-en="Researcher at Centre de recherche en santé publique (CReSP), Montréal, Canada">- Researcher at Centre de recherche en santé publique (CReSP), Montréal, Canada</div>
+                  <div data-fr="Chercheur à l'École de santé publique de l'Université de Montréal (ESPUM), Canada" data-en="Researcher at École de santé publique de l'Université de Montréal (ESPUM), Canada">- Researcher at École de santé publique de l'Université de Montréal (ESPUM), Canada</div>
+                  <div data-fr="Chercheur au Neuro Imaging and Analysis Group (NIAG), Université de Téhéran, Iran" data-en="Researcher at Neuro Imaging and Analysis Group (NIAG), University of Tehran, Iran">- Researcher at Neuro Imaging and Analysis Group (NIAG), University of Tehran, Iran</div>
+                  <div data-fr="Chercheur scientifique et technique à HEC Montréal, Département des sciences de la décision, Montréal, Canada" data-en="Scientific and Technical Researcher at HEC Montréal, Department of Decision Sciences, Montréal, Canada">- Scientific and Technical Researcher at HEC Montréal, Department of Decision Sciences, Montréal, Canada</div>
+                  <div data-fr="Chargé de cours en apprentage automatique à HEC Montréal, Département des sciences de la décision, Montréal, Canada" data-en="Machine Learning Lecturer at HEC Montréal, Department of Decision Sciences, Montréal, Canada">- Machine Learning Lecturer at HEC Montréal, Department of Decision Sciences, Montréal, Canada</div>
+                  <div data-fr="Chargé de cours en apprentage automatique à l'Université Shahid Beheshti, Département de statistique et d'informatique, Téhéran, Iran" data-en="Machine Learning Lecturer at Shahid Beheshti University, Department of Statistics and Computer Science, Tehran, Iran">- Machine Learning Lecturer at Shahid Beheshti University, Department of Statistics and Computer Science, Tehran, Iran</div>
+                  <div data-fr="Membre de l'IVADO (Institut de valorisation des données), Montréal, Canada" data-en="Member of IVADO (Institute for Data Valorization), Montréal, Canada">- Member of IVADO (Institute for Data Valorization), Montréal, Canada</div>
+                  <div data-fr="Membre du Centre de recherches mathématiques (CRM), Montréal, Canada" data-en="Member of Centre de recherches mathématiques (CRM), Montréal, Canada">- Member of Centre de recherches mathématiques (CRM), Montréal, Canada</div>
+                  <div data-fr="Membre du Groupe d'études et de recherche en analyse des décisions (GERAD), Montréal, Canada" data-en="Member of Groupe d'études et de recherche en analyse des décisions (GERAD), Montréal, Canada">- Member of Groupe d'études et de recherche en analyse des décisions (GERAD), Montréal, Canada</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section><!-- /About Section -->
+
+    <!-- Companies Section -->
+    <section id="companies" class="companies section">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title text-center mb-1">
+          <h2 data-fr="Entreprises avec lesquelles j'ai travaillé" data-en="Companies I've Worked With">Companies I've Worked With</h2>
+          <p data-fr="Organisations et entreprises où j'ai contribué à des projets d'IA et de science des données" data-en="Organizations and companies where I've contributed to AI and data science projects">Organizations and companies where I've contributed to AI and data science projects</p>
+        </div>
+        
+        <div class="companies-scroll">
+          <div class="companies-track">
+            <!-- First set of logos -->
+            <div class="company-item">
+              <a href="https://ivado.ca/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/Ivado.png" alt="IVADO" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://www.ericsson.com/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/Ericsson.png" alt="Ericsson" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://www.nbc.ca/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/National_Bank_Of_Canada.png" alt="National Bank of Canada" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://www.cbc.ca/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/CBC.png" alt="CBC" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://iriu.ca/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/IRIU.png" alt="IRIU" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://centredmvet.com/en/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/Groupe-DMV.png" alt="Groupe DMV" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://www.aircanada.com/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/Air-Canada.png" alt="Air Canada" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://www.hitachi.com/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/Hitachi.png" alt="Hitachi" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://www.clean-nature.ca/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/CleanNature.png" alt="CleanNature" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://lassena.etsmtl.ca/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/Lassena.png" alt="Lassena" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://niag.ut.ac.ir/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/niag.png" alt="NIAG" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://www.etsmtl.ca/en/research/livia" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/Livia.png" alt="LIVIA" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://inrs.ca/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/INRS.png" alt="INRS" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://www.crm.umontreal.ca/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/CRM.png" alt="CRM" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://mila.quebec/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/Mila.png" alt="Mila" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://www.intact.ca/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/intact.png" alt="Intact" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://www.beneva.ca/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/Beneva.png" alt="Beneva" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://emrc.ca/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/EMRC.png" alt="EMRC" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://snapp.ir/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/Snapp.png" alt="Snapp" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://www.umontreal.ca/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/universite-de-montreal.png" alt="Université de Montréal" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://www.hec.ca/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/HEC.png" alt="HEC Montréal" class="company-logo">
+              </a>
+            </div>
+            <!-- Duplicate set for seamless marquee -->
+            <div class="company-item">
+              <a href="https://ivado.ca/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/Ivado.png" alt="IVADO" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://www.ericsson.com/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/Ericsson.png" alt="Ericsson" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://www.nbc.ca/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/National_Bank_Of_Canada.png" alt="National Bank of Canada" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://www.cbc.ca/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/CBC.png" alt="CBC" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://iriu.ca/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/IRIU.png" alt="IRIU" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://centredmvet.com/en/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/Groupe-DMV.png" alt="Groupe DMV" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://www.aircanada.com/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/Air-Canada.png" alt="Air Canada" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://www.hitachi.com/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/Hitachi.png" alt="Hitachi" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://www.clean-nature.ca/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/CleanNature.png" alt="CleanNature" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://lassena.etsmtl.ca/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/Lassena.png" alt="Lassena" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://niag.ut.ac.ir/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/niag.png" alt="NIAG" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://www.etsmtl.ca/en/research/livia" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/Livia.png" alt="LIVIA" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://inrs.ca/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/INRS.png" alt="INRS" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://www.crm.umontreal.ca/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/CRM.png" alt="CRM" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://mila.quebec/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/Mila.png" alt="Mila" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://www.intact.ca/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/intact.png" alt="Intact" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://www.beneva.ca/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/Beneva.png" alt="Beneva" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://emrc.ca/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/EMRC.png" alt="EMRC" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://snapp.ir/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/Snapp.png" alt="Snapp" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://www.umontreal.ca/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/universite-de-montreal.png" alt="Université de Montréal" class="company-logo">
+              </a>
+            </div>
+            <div class="company-item">
+              <a href="https://www.hec.ca/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/companies/HEC.png" alt="HEC Montréal" class="company-logo">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- /Companies Section -->
+
+    <!-- Stats Section -->
+    <section id="stats" class="stats section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">
+            <i class="bi bi-mortarboard"></i>
+            <div class="stats-item">
+              <span data-purecounter-start="0" data-purecounter-end="7" data-purecounter-duration="1" class="purecounter"></span>
+              <p data-fr="ans de formation universitaire" data-en="years of university education">ans de formation universitaire</p>
+            </div>
+          </div><!-- End Stats Item -->
+
+          <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">
+            <i class="bi bi-graph-up-arrow"></i>
+            <div class="stats-item">
+              <span data-purecounter-start="0" data-purecounter-end="9" data-purecounter-duration="1" class="purecounter"></span>
+              <p data-fr="ans d'exeprience professionnelle" data-en="years of professional experience">ans d'exeprience professionnelle</p>
+            </div>
+          </div><!-- End Stats Item -->
+
+          <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">
+            <i class="bi bi-headset"></i>
+            <div class="stats-item">
+              <span data-purecounter-start="0" data-purecounter-end="35" data-purecounter-duration="1" class="purecounter"></span>
+              <p data-fr="projets" data-en="projects">projets</p>
+            </div>
+          </div><!-- End Stats Item -->
+
+          <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">
+            <i class="bi bi-people"></i>
+            <div class="stats-item">
+              <span data-purecounter-start="0" data-purecounter-end="25" data-purecounter-duration="1" class="purecounter"></span>
+              <p data-fr="clients de différents sécteurs" data-en="clients from different sectors">clients de différents sécteurs</p>
+            </div>
+          </div><!-- End Stats Item -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Stats Section -->
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2 data-fr="Compétences mises en avant" data-en="Highlighted Skills">Highlighted Skills</h2>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row skills-content skills-animation">
+
+          <div class="col-lg-6">
+
+            <div class="progress">
+              <span class="skill"><span>Python</span> <i class="val">95%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div><!-- End Skills Item -->
+
+            <div class="progress">
+              <span class="skill"><span>R</span> <i class="val">90%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div><!-- End Skills Item -->
+
+            <div class="progress">
+              <span class="skill"><span>C/C++/Rust</span> <i class="val">75%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div><!-- End Skills Item -->
+
+            <div class="progress">
+              <span class="skill"><span>Golang</span> <i class="val">70%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div><!-- End Skills Item -->
+
+            <div class="progress">
+              <span class="skill"><span>Bash/Linux</span> <i class="val">85%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div><!-- End Skills Item -->
+
+            <div class="progress">
+              <span class="skill"><span>Java</span> <i class="val">75%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div><!-- End Skills Item -->
+
+            <div class="progress">
+              <span class="skill"><span>HTML/CSS/JavaScript</span> <i class="val">80%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div><!-- End Skills Item -->
+
+            <div class="progress">
+              <span class="skill"><span>PHP</span> <i class="val">70%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div><!-- End Skills Item -->
+
+            <div class="progress">
+              <span class="skill"><span>C#</span> <i class="val">75%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div><!-- End Skills Item -->
+
+          </div>
+
+          <div class="col-lg-6">
+
+            <div class="progress">
+              <span class="skill"><span>SAS/JMP</span> <i class="val">85%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div><!-- End Skills Item -->
+
+            <div class="progress">
+              <span class="skill"><span>SPSS</span> <i class="val">80%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div><!-- End Skills Item -->
+
+            <div class="progress">
+              <span class="skill"><span>Git/GitHub/Github actions</span> <i class="val">90%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div><!-- End Skills Item -->
+
+            <div class="progress">
+              <span class="skill"><span>PowerBI, Tableau</span> <i class="val">85%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div><!-- End Skills Item -->
+
+            <div class="progress">
+              <span class="skill"><span>SQL/NoSQL</span> <i class="val">90%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div><!-- End Skills Item -->
+
+            <div class="progress">
+              <span class="skill"><span>Hadoop/Spark</span> <i class="val">80%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div><!-- End Skills Item -->
+
+            <div class="progress">
+              <span class="skill"><span>AWS/Azure</span> <i class="val">85%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div><!-- End Skills Item -->
+
+            <div class="progress">
+              <span class="skill"><span>Docker/Kubernetes</span> <i class="val">80%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div><!-- End Skills Item -->
+
+            <div class="progress">
+              <span class="skill"><span>Pytorch/Tensorflow</span> <i class="val">90%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div><!-- End Skills Item -->
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- /Skills Section -->
+
+    <!-- Resume Section -->
+    <section id="resume" class="resume section">
+
+<!-- Section Title -->
+<div class="container section-title" data-aos="fade-up">
+  <h2 data-fr="CV" data-en="Resume">CV</h2>
+  <p data-fr="Discutez directement avec mon CV version chatbot" data-en="Chat directly with my CV chatbot version">Discutez directement avec mon CV version chatbot <a href="https://sa-chatbot-e22zom2r5zkpg9sx5dhazc.streamlit.app/" target="_blank" data-fr="ici" data-en="here">ici</a> !</p>
+</div><!-- End Section Title -->
+      
+<div class="container">
+  <div class="row">
+    <!-- Left Column -->
+    <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+      <h3 class="resume-title" data-fr="Éducation" data-en="Education">Éducation</h3>
+      <div class="resume-item">
+        <h4 data-fr="M.Sc. Génie logiciel - Intelligence artificielle" data-en="M.Sc. Software Engineering - Artificial Intelligence">M.Sc. Software Engineering - Artificial Intelligence</h4>
+        <h5 data-fr="École de Technologie Supérieure (ÉTS)" data-en="École de Technologie Supérieure (ÉTS)">École de Technologie Supérieure (ÉTS)</h5>
+        <h6>Sept 2021 – Mar 2024</h6>
+      </div>
+      <div class="resume-item">
+        <h4 data-fr="B.Sc. Statistiques appliquées" data-en="B.Sc. Applied Statistics">B.Sc. Applied Statistics</h4>
+        <h5 data-fr="Shahid Beheshti University (SBU), Téhéran, Iran" data-en="Shahid Beheshti University (SBU), Tehran, Iran">Shahid Beheshti University (SBU), Tehran, Iran</h5>
+        <h6>Sept 2012 – Aug 2016</h6>
+      </div>
+      <h3 class="resume-title" data-fr="Compétences techniques" data-en="Technical Skills">Technical Skills</h3>
+      <div class="resume-item">
+        <ul>
+          <li><b data-fr="Langages de programmation:" data-en="Programming Languages:">Programming Languages:</b> Python, C++, Bash, R, Java, PHP, JavaScript, HTML, CSS</li>
+          <li><b data-fr="Machine Learning & Deep Learning:" data-en="Machine Learning & Deep Learning:">Machine Learning & Deep Learning:</b> SciPy, Scikit-learn, TensorFlow, PyTorch, TorchScript, Hugging Face, Transformers, LoRA</li>
+          <li><b data-fr="IA générative & LLMs:" data-en="Generative AI & LLMs:">Generative AI & LLMs:</b> Fine-tuning (LoRA, QLoRA), OpenAI API, RAG, Knowledge Distillation, LLMOps, CUDA</li>
+          <li><b data-fr="Apprentissage par renforcement:" data-en="Reinforcement Learning:">Reinforcement Learning:</b> Q-Learning, DQN, Policy Gradient Methods, OpenAI Gym</li>
+          <li><b data-fr="MLOps:" data-en="MLOps:">MLOps:</b> Git, Docker, Kubernetes, Pytest, Jenkins, CI/CD, MLflow, AWS, Azure, Databricks</li>
+          <li><b data-fr="API & Développement web:" data-en="API & Web Development:">API & Web Development:</b> FastAPI, Flask, Django, Shiny</li>
+          <li><b data-fr="Ingénierie des données:" data-en="Data Engineering:">Data Engineering:</b> PySpark, Hadoop, Airflow, Kafka, SQL/NoSQL, ETL</li>
+          <li><b data-fr="Langues:" data-en="Languages:">Languages:</b> <span data-fr="Anglais (TOEFL 100), Français (TEFaQ Niveau 7), Arabe (Intermédiaire), Persan (Langue maternelle)" data-en="English (TOEFL 100), French (TEFaQ Niveau 7), Arabic (Intermediate), Persian (Native)">English (TOEFL 100), French (TEFaQ Niveau 7), Arabic (Intermediate), Persian (Native)</span></li>
+        </ul>
+      </div>
+      <h3 class="resume-title" data-fr="Licences et certifications" data-en="Licenses & Certifications">Licenses & Certifications</h3>
+      <div class="resume-item">
+        <h4 data-fr="Fiabilité dans l'apprentissage profond" data-en="Trustworthiness in Deep Learning">Trustworthiness in Deep Learning</h4>
+        <h5 data-fr="Université de technologie Sharif" data-en="Sharif University of Technology">Sharif University of Technology</h5>
+        <h6>Sep 2024</h6>
+      </div>
+      <div class="resume-item">
+        <h4 data-fr="Déployer un portail de données ouvertes local avec CKAN" data-en="Deploy a Local Open Data Portal with CKAN">Deploy a Local Open Data Portal with CKAN</h4>
+        <h5>Udemy</h5>
+        <h6>Sep 2023</h6>
+      </div>
+      <div class="resume-item">
+        <h4 data-fr="Introduction à Docker" data-en="Introduction to Docker">Introduction to Docker</h4>
+        <h5>DataCamp</h5>
+        <h6>Sep 2023</h6>
+      </div>
+      <h3 class="resume-title" data-fr="Distinctions et prix" data-en="Honors & Awards">Honors & Awards</h3>
+      <div class="resume-item">
+        <h4 data-fr="Bourse Mitacs Accelerate" data-en="Mitacs Accelerate Scholarship">Mitacs Accelerate Scholarship</h4>
+        <h5 data-fr="Mitacs · École de technologie supérieure (ÉTS), Montréal" data-en="Mitacs · École de technologie supérieure (ÉTS), Montréal">Mitacs · École de technologie supérieure (ÉTS), Montréal</h5>
+        <h6>May 2024</h6>
+      </div>
+      <div class="resume-item">
+        <h4 data-fr="Bourse Mitacs Accelerate" data-en="Mitacs Accelerate Scholarship">Mitacs Accelerate Scholarship</h4>
+        <h5 data-fr="Mitacs · École de technologie supérieure (ÉTS), Montréal" data-en="Mitacs · École de technologie supérieure (ÉTS), Montréal">Mitacs · École de technologie supérieure (ÉTS), Montréal</h5>
+        <h6>Dec 2024</h6>
+      </div>
+      <div class="resume-item">
+        <h4 data-fr="Exemption des frais de scolarité internationaux (2022–2023)" data-en="International Tuition Fee Exemption (2022–2023)">International Tuition Fee Exemption (2022–2023)</h4>
+        <h5 data-fr="École de technologie supérieure (ÉTS), Montréal" data-en="École de technologie supérieure (ÉTS), Montréal">École de technologie supérieure (ÉTS), Montréal</h5>
+        <p data-fr="Octroi d'une exemption complète des frais de scolarité internationaux supplémentaires." data-en="Granted full exemption from additional international tuition fees.">Granted full exemption from additional international tuition fees.</p>
+      </div>
+      <div class="resume-item">
+        <h4 data-fr="Exemption des frais de scolarité internationaux (2021–2022)" data-en="International Tuition Fee Exemption (2021–2022)">International Tuition Fee Exemption (2021–2022)</h4>
+        <h5 data-fr="École de technologie supérieure (ÉTS), Montréal" data-en="École de technologie supérieure (ÉTS), Montréal">École de technologie supérieure (ÉTS), Montréal</h5>
+        <p data-fr="Octroi d'une exemption complète des frais de scolarité internationaux supplémentaires." data-en="Granted full exemption from additional international tuition fees.">Granted full exemption from additional international tuition fees.</p>
+      </div>
+    </div><!-- End Left Column -->
+
+    <!-- Right Column -->
+    <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+      <h3 class="resume-title" data-fr="Expérience professionnelle" data-en="Professional Experience">Professional Experience</h3>
+      <div class="resume-item">
+        <h4 data-fr="Ingénieur en apprentissage automatique (Projet contractuel)" data-en="Machine Learning Engineer (Contract Project)">Machine Learning Engineer (Contract Project)</h4>
+        <h5 data-fr="IRIU - Montréal, Canada" data-en="IRIU - Montreal, Canada">IRIU - Montreal, Canada</h5>
+        <h6>Jan 2025 – Present</h6>
+        <ul>
+          <li data-fr="Conçu un pipeline de données robuste pour l'analyse de données urbaines, intégrant le web scraping pour l'acquisition de données textuelles." data-en="Engineered a robust data pipeline for urban data analysis, incorporating web scraping for textual data acquisition.">Engineered a robust data pipeline for urban data analysis, incorporating web scraping for textual data acquisition.</li>
+          <li data-fr="Effectué l'extraction de connaissances à partir de texte non structuré, stockant les insights dans une base de données pour une analyse ultérieure basée sur le NLP." data-en="Performed knowledge extraction from unstructured text, storing insights in a database for further NLP-driven analysis.">Performed knowledge extraction from unstructured text, storing insights in a database for further NLP-driven analysis.</li>
+          <li data-fr="Appliqué diverses méthodes NLP, incluant la résumé automatique et la reconnaissance d'entités nommées (NER), pour traiter et comprendre les informations textuelles urbaines." data-en="Applied diverse NLP methods, including text summarization and Named Entity Recognition (NER), to process and understand urban textual information.">Applied diverse NLP methods, including text summarization and Named Entity Recognition (NER), to process and understand urban textual information.</li>
+          <li data-fr="Exploité des modèles de base avec l'apprentissage zero-shot et l'ingénierie de prompts pour un raisonnement sophistiqué et la classification des données urbaines." data-en="Leveraged foundation models with zero-shot learning and prompt engineering for sophisticated reasoning and classification of urban data.">Leveraged foundation models with zero-shot learning and prompt engineering for sophisticated reasoning and classification of urban data.</li>
+        </ul>
+      </div>
+      <div class="resume-item">
+        <h4 data-fr="Ingénieur en apprentissage automatique (Projet contractuel)" data-en="Machine Learning Engineer (Contract Project)">Machine Learning Engineer (Contract Project)</h4>
+        <h5 data-fr="Clean Nature - Montréal, Canada" data-en="Clean Nature - Montreal, Canada">Clean Nature - Montreal, Canada</h5>
+        <h6>Jun 2024 – Nov 2024</h6>
+        <ul>
+          <li data-fr="Développé des pipelines d'apprentissage automatique géospatial en Python et C++ pour optimiser l'utilisation du sel, en se concentrant sur l'efficacité d'inférence et le déploiement à faible latence sur le matériel cible." data-en="Developed geospatial machine learning pipelines in Python and C++ to optimize salt usage, focusing on inference efficiency and low-latency deployment on target hardware.">Developed geospatial machine learning pipelines in Python and C++ to optimize salt usage, focusing on inference efficiency and low-latency deployment on target hardware.</li>
+        </ul>
+      </div>
+      <div class="resume-item">
+        <h4 data-fr="Ingénieur en apprentissage automatique (Projet contractuel)" data-en="Machine Learning Engineer (Contract Project)">Machine Learning Engineer (Contract Project)</h4>
+        <h5 data-fr="CENTREDMVET - Montréal, Canada" data-en="CENTREDMVET - Montreal, Canada">CENTREDMVET - Montreal, Canada</h5>
+        <h6>Apr 2023 – May 2024</h6>
+        <ul>
+          <li data-fr="Conçu et implémenté un pipeline d'intégration de données en temps réel qui utilisait la reconnaissance d'entités nommées (NER) pour l'extraction automatisée de connaissances sur les prescriptions et l'amélioration du profilage des patients." data-en="Designed and implemented a real-time data integration pipeline that utilized Named Entity Recognition (NER) for automated prescription knowledge extraction and enhanced patient profiling.">Designed and implemented a real-time data integration pipeline that utilized Named Entity Recognition (NER) for automated prescription knowledge extraction and enhanced patient profiling.</li>
+          <li data-fr="Construit un pipeline d'intégration de données en temps réel utilisant le clustering doux et l'algorithme EM pour unifier les dossiers patients entre les sources." data-en="Built a real-time data integration pipeline using soft clustering and the EM algorithm to unify patient records between sources.">Built a real-time data integration pipeline using soft clustering and the EM algorithm to unify patient records between sources.</li>
+        </ul>
+      </div>
+      <div class="resume-item">
+        <h4 data-fr="Chercheur en IA (temps plein)" data-en="AI Researcher (full time)">AI Researcher (full time)</h4>
+        <h5 data-fr="LIVIA - Montréal, Canada" data-en="LIVIA - Montreal, Canada">LIVIA - Montreal, Canada</h5>
+        <h6>Sep 2021 – Mar 2024</h6>
+        <ul>
+          <li data-fr="Développé une approche d'ensemble multi-vues utilisant des modèles de langage de grande taille (LLMs) pour la classification de texte." data-en="Developed a multi-view ensemble approach using large language models (LLMs) for text classification.">Developed a multi-view ensemble approach using large language models (LLMs) for text classification.</li>
+          <li data-fr="Évalué des LLMs tels que Mistral, LLaMA et Falcon pour les performances de détection de fausses nouvelles." data-en="Evaluated LLMs such as Mistral, LLaMA, and Falcon for fake news detection performance.">Evaluated LLMs such as Mistral, LLaMA, and Falcon for fake news detection performance.</li>
+          <li data-fr="Développé un système de vision par ordinateur utilisant YOLO et Ultralytics pour détecter automatiquement l'engagement du verrou de cargaison à partir d'images du monde réel, améliorant la conformité de sécurité grâce à l'amélioration d'image, l'optimisation des hyperparamètres et le déploiement robuste de modèles pour le support décisionnel en temps réel." data-en="Developed a computer vision system using YOLO and Ultralytics to automatically detect cargo lock engagement from real-world images, improving safety compliance through image enhancement, hyperparameter tuning, and robust model deployment for real-time decision support.">Developed a computer vision system using YOLO and Ultralytics to automatically detect cargo lock engagement from real-world images, improving safety compliance through image enhancement, hyperparameter tuning, and robust model deployment for real-time decision support.</li>
+          <li data-fr="Construit des modèles de simplification de texte en anglais et français pour améliorer l'accessibilité du contenu avec CBC/Radio-Canada." data-en="Built English and French text simplification models to improve content accessibility with CBC/Radio-Canada.">Built English and French text simplification models to improve content accessibility with CBC/Radio-Canada.</li>
+          <li data-fr="Développé un modèle de tarification dynamique utilisant l'apprentissage par renforcement pour le fret aérien avec Air Canada Cargo." data-en="Developed a dynamic pricing model using reinforcement learning for air cargo with Air Canada Cargo.">Developed a dynamic pricing model using reinforcement learning for air cargo with Air Canada Cargo.</li>
+          <li data-fr="Construit des modèles d'apprentissage automatique pour la détection de défauts dans les lignes de transmission utilisant le traitement de signal avec Hitachi Energy." data-en="Built machine learning models for fault detection in transmission lines using signal processing with Hitachi Energy.">Built machine learning models for fault detection in transmission lines using signal processing with Hitachi Energy.</li>
+          <li data-fr="Conçu un système de reconnaissance de motifs d'alarme pour soutenir les opérations du réseau avec Hitachi Energy." data-en="Designed an alarm pattern recognition system to support grid operations with Hitachi Energy.">Designed an alarm pattern recognition system to support grid operations with Hitachi Energy.</li>
+        </ul>
+      </div>
+       <div class="resume-item">
+        <h4 data-fr="Ingénieur de données (temps partiel)" data-en="Data Engineer (part time)">Data Engineer (part time)</h4>
+        <h5 data-fr="Université de Montréal - Montréal, Canada" data-en="University of Montreal - Montreal, Canada">University of Montreal - Montreal, Canada</h5>
+        <h6>Jan 2022 – Dec 2022</h6>
+        <ul>
+          <li data-fr="Développé et déployé des pipelines de données et des tableaux de bord pour suivre les tendances de la maladie de Lyme et de la variole du singe." data-en="Developed and deployed data pipelines and dashboards to track Lyme and Monkeypox trends.">Developed and deployed data pipelines and dashboards to track Lyme and Monkeypox trends.</li>
+          <li data-fr="Développé une plateforme d'apprentissage en ligne interactive (Cortex) pour soutenir la livraison de cours et l'engagement des étudiants." data-en="Developed an interactive online learning platform (Cortex) to support course delivery and student engagement.">Developed an interactive online learning platform (Cortex) to support course delivery and student engagement.</li>
+          <li data-fr="Créé un tableau de bord interactif pour analyser les données historiques de congestion dans le marché SPP, permettant des insights en temps réel." data-en="Created an interactive dashboard to analyze historical congestion data in the SPP market, enabling real-time insights.">Created an interactive dashboard to analyze historical congestion data in the SPP market, enabling real-time insights.</li>
+        </ul>
+      </div>
+      <div class="resume-item">
+        <h4 data-fr="Scientifique de données (temps plein)" data-en="Data Scientist (full time)">Data Scientist (full time)</h4>
+        <h5 data-fr="Snapp.ir - Téhéran, Iran" data-en="Snapp.ir - Tehran, Iran">Snapp.ir - Tehran, Iran</h5>
+        <h6>Jun 2019 – May 2021</h6>
+        <ul>
+          <li data-fr="Développé un modèle de segmentation utilisant l'algorithme EM pour permettre le marketing personnalisé." data-en="Developed a segmentation model using the EM algorithm to enable personalized marketing.">Developed a segmentation model using the EM algorithm to enable personalized marketing.</li>
+          <li data-fr="Construit et déployé des modèles d'analyse de sentiment pour analyser les commentaires clients multilingues." data-en="Built and deployed sentiment analysis models to analyze multilingual customer feedback.">Built and deployed sentiment analysis models to analyze multilingual customer feedback.</li>
+          <li data-fr="Créé un modèle de prédiction de désabonnement avec intégration CI/CD pour identifier les utilisateurs à risque et soutenir les stratégies de rétention." data-en="Created a churn prediction model with CI/CD integration to identify at-risk users and support retention strategies.">Created a churn prediction model with CI/CD integration to identify at-risk users and support retention strategies.</li>
+          <li data-fr="Conçu un pipeline d'apprentissage profond pour détecter les collaborateurs concurrents et optimiser les incitatifs pour les conducteurs." data-en="Designed a deep learning pipeline to detect competitor collaborators and optimize driver incentives.">Designed a deep learning pipeline to detect competitor collaborators and optimize driver incentives.</li>
+          <li data-fr="Appliqué des techniques NLP pour améliorer la correspondance floue et la pertinence des requêtes dans la recherche de localisation de l'application." data-en="Applied NLP techniques to improve fuzzy matching and query relevance in the app's location search.">Applied NLP techniques to improve fuzzy matching and query relevance in the app's location search.</li>
+          <li data-fr="Développé des tableaux de bord en temps réel dans Power BI pour surveiller la santé de la flotte et les performances des conducteurs." data-en="Developed real-time dashboards in Power BI to monitor fleet health and driver performance.">Developed real-time dashboards in Power BI to monitor fleet health and driver performance.</li>
+        </ul>
+      </div>
+      <div class="resume-item">
+        <h4 data-fr="Scientifique de données (temps plein)" data-en="Data Scientist (full time)">Data Scientist (full time)</h4>
+        <h5 data-fr="Emrooz Market Research Company (EMRC) - Téhéran, Iran" data-en="Emrooz Market Research Company (EMRC) - Tehran, Iran">Emrooz Market Research Company (EMRC) - Tehran, Iran</h5>
+        <h6>Jun 2015 – May 2019</h6>
+        <ul>
+          <li data-fr="Construit un système utilisant la vision par ordinateur et le NLP pour extraire et classer les métadonnées des publicités TV pour l'analyse en temps réel." data-en="Built a system using computer vision and NLP to extract and classify metadata from TV ads for real-time analytics.">Built a system using computer vision and NLP to extract and classify metadata from TV ads for real-time analytics.</li>
+          <li data-fr="Développé un moteur de recommandation utilisant les données d'audience TAM pour optimiser les placements publicitaires et augmenter l'engagement." data-en="Developed a recommendation engine using TAM audience data to optimize ad placements and increase engagement.">Developed a recommendation engine using TAM audience data to optimize ad placements and increase engagement.</li>
+          <li data-fr="Conçu et implémenté la stratégie d'échantillonnage et le pipeline de données pour un système national de mesure d'audience TV." data-en="Designed and implemented the sampling strategy and data pipeline for a nationwide TV audience measurement system.">Designed and implemented the sampling strategy and data pipeline for a nationwide TV audience measurement system.</li>
+          <li data-fr="Dirigé la conception d'un recensement de détail avec des pipelines d'enquête personnalisés et un échantillonnage spatial pour l'analyse de marché." data-en="Led the design of a retail census with customized survey pipelines and spatial sampling for market analytics.">Led the design of a retail census with customized survey pipelines and spatial sampling for market analytics.</li>
+          <li data-fr="Construit un système de détection de fraude utilisant la reconnaissance d'entités nommées et les règles d'association pour signaler les prescriptions suspectes." data-en="Built a fraud detection system using Named Entity Recognition and association rules to flag suspicious prescriptions.">Built a fraud detection system using Named Entity Recognition and association rules to flag suspicious prescriptions.</li>
+        </ul>
+      </div>
+    </div><!-- End Right Column -->
+
+  </div>
+</div>
+
+</section><!-- /Resume Section -->
+
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2 data-fr="Portfolio" data-en="Portfolio">Portfolio</h2>
+        <p data-fr="Une sélection de projets sur lesquels j'ai travaillé" data-en="A selection of projects I've worked on">A selection of projects I've worked on</p>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+
+          <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
+            <li data-filter="*" class="filter-active" data-fr="Tout" data-en="All">All</li>
+            <li data-filter=".filter-app" data-fr="Articles" data-en="Articles">Articles</li>
+            <li data-filter=".filter-web" data-fr="Cours" data-en="Courses">Courses</li>
+            <li data-filter=".filter-card" data-fr="Entretiens et conférences" data-en="Interviews and Talks">Interviews and Talks</li>
+          </ul><!-- End Portfolio Filters -->
+
+          <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+              <img src="assets/img/masonry-portfolio/Fake News Detection.jpg" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4 data-fr="FAKE NEWS DETECTION: TAXONOMY AND COMPARATIVE STUDY" data-en="FAKE NEWS DETECTION: TAXONOMY AND COMPARATIVE STUDY">FAKE NEWS DETECTION: TAXONOMY AND COMPARATIVE STUDY</h4>
+                <p data-fr="Article publié dans Information Fusion Special Issue on Multimodal Fusion Technologies to Counter Disinformation (Novembre 2023)." 
+                   data-en="Article published in Information Fusion Special Issue on Multimodal Fusion Technologies to Counter Disinformation (November 2023).">
+                   Article published in Information Fusion Special Issue on Multimodal Fusion Technologies to Counter Disinformation (November 2023).
+                </p>
+                <a href="assets/img/masonry-portfolio/Fake News Detection.jpg" title="Fake News Detection Article" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class=none></i></a>
+                <a href="https://www.sciencedirect.com/science/article/abs/pii/S1566253523004566?via%3Dihub" title="More Details" class="details-link" target="_blank"><i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+              <img src="assets/img/masonry-portfolio/magnetometer calibration.png" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4 data-fr="A Magnetometer Calibration Method Using Single-Axis Motion Trajectory and Unscented Kalman Filter for Body Motion Capture Applications" data-en="A Magnetometer Calibration Method Using Single-Axis Motion Trajectory and Unscented Kalman Filter for Body Motion Capture Applications">A Magnetometer Calibration Method Using Single-Axis Motion Trajectory and Unscented Kalman Filter for Body Motion Capture Applications</h4>
+                <p data-fr="Article publié dans International Journal of Sensors and Sensor Networks (12 Janvier 2021)." 
+                   data-en="Article published in International Journal of Sensors and Sensor Networks (January 12, 2021).">
+                   Article published in International Journal of Sensors and Sensor Networks (January 12, 2021).
+                </p>
+                <a href="assets/img/masonry-portfolio/magnetometer calibration.png" title="Magnetometer Calibration Article" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class=none></i></a>
+                <a href="https://www.sciencepublishinggroup.com/article/10.11648/10053145" title="More Details" class="details-link" target="_blank"><i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+              <img src="assets/img/masonry-portfolio/14th.png" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4 data-fr="Comptes rendus du 14e atelier de résolution de problèmes industriels de Montréal, 13--17 mai 2024" data-en="Proceedings of the 14th Montréal industrial problem solving workshop, May 13--17, 2024">Proceedings of the 14th Montréal industrial problem solving workshop, May 13--17, 2024</h4>
+                <p data-fr="Atelier organisé conjointement par le CRM, IVADO et GERAD, examinant six problèmes fournis par Air Canada, l'Autorité des marchés financiers, Environnement et Changement climatique Canada, IATA et Revenu Québec." 
+                   data-en="Workshop jointly organized by CRM, IVADO and GERAD, examining six problems provided by Air Canada, Autorité des marchés financiers, Environment and Climate Change Canada, IATA and Revenu Québec.">
+                   Workshop jointly organized by CRM, IVADO and GERAD, examining six problems provided by Air Canada, Autorité des marchés financiers, Environment and Climate Change Canada, IATA and Revenu Québec.
+                </p>
+                <a href="assets/img/masonry-portfolio/14th.png" title="14th Montreal Workshop Article" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class=none></i></a>
+                <a href="https://www.gerad.ca/en/papers/G-2024-76" title="More Details" class="details-link" target="_blank"><i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+              <img src="assets/img/masonry-portfolio/12th.png" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4 data-fr="Comptes rendus du douzième atelier de résolution de problèmes industriels de Montréal, 22-26 août 2022" data-en="Proceedings of the twelfth Montréal industrial problem solving workshop, August 22-26, 2022">Proceedings of the twelfth Montréal industrial problem solving workshop, August 22-26, 2022</h4>
+                <p data-fr="Atelier organisé conjointement par le CRM et IVADO, avec plus de 80 participants et 8 problèmes soumis par Air Canada, Banque Nationale du Canada, Beneva, Environnement et Changement climatique Canada, Hydro-Québec, IATA, Radio-Canada et Revenu Québec." 
+                   data-en="Workshop jointly organized by CRM and IVADO, with more than 80 participants and 8 problems submitted by Air Canada, National Bank of Canada, Beneva, Environment and Climate Change Canada, Hydro-Québec, IATA, Radio-Canada, and Revenu Québec.">
+                   Workshop jointly organized by CRM and IVADO, with more than 80 participants and 8 problems submitted by Air Canada, National Bank of Canada, Beneva, Environment and Climate Change Canada, Hydro-Québec, IATA, Radio-Canada, and Revenu Québec.
+                </p>
+                <a href="assets/img/masonry-portfolio/12th.png" title="12th Montreal Workshop Article" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class=none></i></a>
+                <a href="https://www.gerad.ca/en/papers/G-2022-63" title="More Details" class="details-link" target="_blank"><i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+              <img src="assets/img/masonry-portfolio/9th.png" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4 data-fr="Comptes rendus du neuvième atelier de résolution de problèmes industriels de Montréal, 19-23 août 2019" data-en="Proceedings of the ninth Montréal industrial problem solving workshop, August 19-23, 2019">Proceedings of the ninth Montréal industrial problem solving workshop, August 19-23, 2019</h4>
+                <p data-fr="Atelier organisé conjointement par le CRM et IVADO, avec plus de 100 participants et 9 équipes étudiant des problèmes soumis par le CNRC, Radio-Canada, l'AMF, Air Canada, Desjardins et The Co-operators." 
+                   data-en="Workshop jointly organized by CRM and IVADO, with more than 100 participants and 9 teams studying problems submitted by NRC, Radio-Canada, AMF, Air Canada, Desjardins, and The Co-operators.">
+                   Workshop jointly organized by CRM and IVADO, with more than 100 participants and 9 teams studying problems submitted by NRC, Radio-Canada, AMF, Air Canada, Desjardins, and The Co-operators.
+                </p>
+                <a href="assets/img/masonry-portfolio/9th.png" title="9th Montreal Workshop Article" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class=none></i></a>
+                <a href="https://www.gerad.ca/en/papers/G-2020-57" title="More Details" class="details-link" target="_blank"><i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+              <img src="assets/img/masonry-portfolio/10th.png" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4 data-fr="Comptes rendus du dixième atelier de résolution de problèmes industriels de Montréal, 13-27 août 2020" data-en="Proceedings of the tenth Montréal industrial problem solving workshop, August 13-27, 2020">Proceedings of the tenth Montréal industrial problem solving workshop, August 13-27, 2020</h4>
+                <p data-fr="Atelier virtuel organisé conjointement par le CRM et IVADO, avec plus de 60 participants et 4 problèmes soumis par Air Canada, Desjardins, Hydro-Québec et IATA." 
+                   data-en="Virtual workshop jointly organized by CRM and IVADO, with more than 60 participants and 4 problems submitted by Air Canada, Desjardins, Hydro-Québec, and IATA.">
+                   Virtual workshop jointly organized by CRM and IVADO, with more than 60 participants and 4 problems submitted by Air Canada, Desjardins, Hydro-Québec, and IATA.
+                </p>
+                <a href="assets/img/masonry-portfolio/10th.png" title="10th Montreal Workshop Article" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class=none></i></a>
+                <a href="https://www.gerad.ca/en/papers/G-2021-51" title="More Details" class="details-link" target="_blank"><i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+              <img src="assets/img/masonry-portfolio/13th.png" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4 data-fr="Comptes rendus du treizième atelier de résolution de problèmes industriels de Montréal, 21-25 août 2023" data-en="Proceedings of the thirteenth Montréal industrial problem solving workshop, August 21-25, 2023">Proceedings of the thirteenth Montréal industrial problem solving workshop, August 21-25, 2023</h4>
+                <p data-fr="Atelier organisé conjointement par le CRM et IVADO, avec plus de 80 participants et 9 problèmes soumis par Air Canada, Beneva, Desjardins, Ericsson, Hitachi, Intact, Radio-Canada et la STM." 
+                   data-en="Workshop jointly organized by CRM and IVADO, with more than 80 participants and 9 problems submitted by Air Canada, Beneva, Desjardins, Ericsson, Hitachi, Intact, Radio-Canada, and STM.">
+                   Workshop jointly organized by CRM and IVADO, with more than 80 participants and 9 problems submitted by Air Canada, Beneva, Desjardins, Ericsson, Hitachi, Intact, Radio-Canada, and STM.
+                </p>
+                <a href="assets/img/masonry-portfolio/13th.png" title="13th Montreal Workshop Article" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class=none></i></a>
+                <a href="https://www.gerad.ca/en/papers/G-2024-21" title="More Details" class="details-link" target="_blank"><i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+          </div><!-- End Portfolio Container -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Portfolio Section -->
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact section">
+    <div class="container" data-aos="fade" data-aos-delay="100">
+      <!-- Section Title -->
+      <div class="row justify-content-center mb-4">
+        <div class="col-lg-10">
+          <h2 class="text-center" data-fr="Contact" data-en="Contact" style="font-weight:700;">Contact</h2>
+          <p class="text-center" style="margin-bottom:2rem;" data-fr="Que ce soit pour une demande de service, de collaboration, une question ou simplement par curiosité, n'hésitez pas à me contacter par email ou à vous connecter à mon profil" data-en="Whether it's for a service request, collaboration, a question or simply out of curiosity, don't hesitate to contact me by email or connect to my profile">Whether it's for a service request, collaboration, a question or simply out of curiosity, don't hesitate to contact me by email or connect to my <a href="https://www.linkedin.com/in/faramarzfarhangian/" target="_blank" style="color:#0a1aff;font-weight:600;">LinkedIn</a> profile !</p>
+        </div>
+      </div>
+      <div class="row align-items-start justify-content-center" style="background:#fff; border-radius:18px; box-shadow:0 0 20px rgba(0,0,0,0.04); padding:2.5rem 1.5rem;">
+        <!-- Left: Contact Info -->
+        <div class="col-lg-4 col-md-5 mb-4 mb-md-0 d-flex flex-column align-items-start justify-content-center">
+          <div class="info-item d-flex align-items-center mb-3">
+            <i class="bi bi-envelope flex-shrink-0"></i>
+            <div class="ms-3">
+              <span style="font-weight:700; font-size:1.1rem; color:#222;">Email</span><br>
+              <span style="color:#222;">farhangian.faramarz@gmail.com</span>
+            </div>
+          </div>
+          <div class="info-item d-flex align-items-center mb-3">
+            <i class="bi bi-phone flex-shrink-0"></i>
+            <div class="ms-3">
+              <span style="font-weight:700; font-size:1.1rem; color:#222;">Phone</span><br>
+              <span style="color:#222;">+1 514 885 1372</span>
+            </div>
+          </div>
+          <div class="info-item d-flex align-items-center mb-3">
+            <i class="bi bi-geo-alt flex-shrink-0"></i>
+            <div class="ms-3">
+              <span style="font-weight:700; font-size:1.1rem; color:#222;">Location</span><br>
+              <span style="color:#222;">Montreal, Canada</span>
+            </div>
+          </div>
+        </div>
+        <!-- Right: Contact Form -->
+        <div class="col-lg-8 col-md-7">
+          <form action="https://formspree.io/f/xblroydk" method="POST" class="php-email-form" id="contact-form">
+            <div class="row gy-4">
+              <div class="col-md-6">
+                <input type="text" name="name" class="form-control" data-fr-placeholder="Nom" data-en-placeholder="Name" placeholder="Name" required>
+              </div>
+              <div class="col-md-6">
+                <input type="email" class="form-control" name="email" data-fr-placeholder="Email" data-en-placeholder="Email" placeholder="E-mail" required>
+              </div>
+              <div class="col-md-12">
+                <input type="text" class="form-control" name="subject" data-fr-placeholder="Sujet" data-en-placeholder="Subject" placeholder="Subject" required>
+              </div>
+              <div class="col-md-12">
+                <textarea class="form-control" name="message" rows="6" data-fr-placeholder="Message" data-en-placeholder="Message" placeholder="Message" required></textarea>
+              </div>
+              <div class="col-md-12 text-center">
+                <div class="loading" style="display:none;" data-fr="Chargement" data-en="Loading">Loading</div>
+                <div class="error-message" style="display:none;color:red;"></div>
+                <div class="sent-message" style="display:none;color:green;" data-fr="Votre message a été envoyé. Merci !" data-en="Your message has been sent. Thank you!">Votre message a été envoyé. Merci !</div>
+                <button type="submit" data-fr="Envoyer" data-en="Send">Send</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section><!-- End Contact Section -->
+
+  </main>
+
+  <footer id="footer" class="footer position-relative">
+    <div class="container">
+      <h3 class="sitename">Faramarz Farhangian</h3>
+      <p data-fr="Merci de visiter mon portfolio. Si vous avez des questions ou souhaitez discuter de collaborations potentielles, n'hésitez pas à me contacter." data-en="Thank you for visiting my portfolio. If you have any questions or would like to discuss potential collaborations, don't hesitate to contact me.">Merci de visiter mon portfolio. Si vous avez des questions ou souhaitez discuter de collaborations potentielles, n'hésitez pas à me contacter.</p>
+      <div class="social-links d-flex justify-content-center">
+        <a href="https://www.linkedin.com/in/faramarzfarhangian/"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/FFarhangian"><i class="fab fa-github"></i></a>
+        <a href="https://www.facebook.com/profile.php?id=61577031762109"><i class="fab fa-facebook"></i></a>
+        <a href="https://x.com/FaramarzFarhan4"><i class="fab fa-x-twitter"></i></a>
+        <a href="https://farafhn.medium.com/"><i class="fab fa-medium"></i></a>
+        <a href="https://huggingface.co/farafhn"><i class="fas fa-robot"></i></a>
+        <a href="https://scholar.google.ca/citations?hl=en&user=yo3nsroAAAAJ"><i class="fas fa-graduation-cap"></i></a>
+        <a href="https://orcid.org/0009-0000-2697-6034"><i class="fab fa-orcid"></i></a>
+        <a href="https://www.kaggle.com/faramarzfarhangian"><i class="fab fa-kaggle"></i></a>
+      </div>
+      <div class="container">
+        <div class="copyright">
+          <span data-fr="Copyright" data-en="Copyright">Copyright</span> <span class="px-1 sitename">Faramarz Farhangian</span> <span data-fr="Tous droits réservés" data-en="All Rights Reserved">Tous droits réservés</span>
+        </div>
+        <div class="credits">
+          <span data-fr="Conçu par" data-en="Designed by">Conçu par</span> <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/typed.js/typed.umd.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+</html>
+
+
